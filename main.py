@@ -9,7 +9,7 @@ class MainApplication():
         self.parent = parent
 
         self.parent.title("Widgets Tkinter")
-        self.parent.minsize(460,450)
+        self.parent.minsize(460,550)
         self.parent.resizable(width=False, height=False)
         # Contenido ventana
         # Fila 0
@@ -62,25 +62,35 @@ class MainApplication():
         self.limpiar.grid(padx=10, pady=5, column=0, row=6, sticky="w")
 
         # Fila 7
+        self.salida = tk.Text(self.parent, width=20, height=5)
+        self.salida.config(state=tk.NORMAL)
+        self.salida.insert(tk.INSERT, 'Muestro un resultado')
+        self.salida.config(state=tk.DISABLED)
+        self.salida.config(state=tk.NORMAL)
+        self.salida.insert(tk.INSERT, '\nMuestro otro  resultado')
+        self.salida.config(state=tk.DISABLED)
+        self.salida.grid(padx=10, pady=5, column=0, columnspan=3, row=7, sticky="ew")
+        
+        # Fila 8
         self.spin = ttk.Spinbox(self.parent, values=(1, 2, 3, 4, 5, 6), width=5 )
         self.spin.set(3)
-        self.spin.grid(padx=10, pady=5, column=0, row=7, sticky="w")
+        self.spin.grid(padx=10, pady=5, column=0, row=8, sticky="w")
 
-        # Fila 8
-        self.radetiqueta = tk.Label(self.parent, text="Checkbutton: ", font=("Arial", 12))
-        self.radetiqueta.grid(padx=10, pady=5, column=0, row=8, sticky="w")
-        
         # Fila 9
-        self.chk_value = tk.BooleanVar()
-        self.chk = ttk.Checkbutton(self.parent, text="Seleccionar", var=self.chk_value) 
-        self.chk.grid(padx=10, pady=5, column=0, row=9, sticky="w")
+        self.radetiqueta = tk.Label(self.parent, text="Checkbutton: ", font=("Arial", 12))
+        self.radetiqueta.grid(padx=10, pady=5, column=0, row=9, sticky="w")
         
         # Fila 10
+        self.chk_value = tk.BooleanVar()
+        self.chk = ttk.Checkbutton(self.parent, text="Seleccionar", var=self.chk_value) 
+        self.chk.grid(padx=10, pady=5, column=0, row=10, sticky="w")
+        
+        # Fila 11
         self.enviar = ttk.Button(self.parent, text="Enviar", command=self.enviar)
-        self.enviar.grid(padx=10, pady=5, column=0, row=10, sticky="w")
+        self.enviar.grid(padx=10, pady=5, column=0, row=11, sticky="w")
 
         self.chk = ttk.Button(self.parent, text="Subventana", command=self.sub_ventana) 
-        self.chk.grid(padx=10, pady=5, column=2, row=10, sticky="w")
+        self.chk.grid(padx=10, pady=5, column=2, row=11, sticky="w")
         
         # Barra de menús
         menu = tk.Menu(self.parent)
