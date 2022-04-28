@@ -42,7 +42,7 @@ class Library:
         self.__name = name
         self.__readers = []
         self.__clear_file()
-        self.__sync_readers()
+        # self.__sync_readers()  # Empezamos objeto cargando los lector desde el fichero
 
     def add_reader(self, reader):
         """Adds a reader to the library and stores it in the file"""
@@ -50,8 +50,8 @@ class Library:
         list_readers = []
         list_readers = self.__load_readers()
 
-        list_readers.append(reader.get_dict())
-        print(list_readers)
+        list_readers.append(reader.get_dict())  # Pasamos atributos del objeto a dict
+
         self.__store_readers(list_readers)
         
     def del_reader(self, reader_name):
@@ -75,8 +75,10 @@ class Library:
         
     def show_readers(self):
         """Show all readers in the library"""
+        print("============READERS LIST===============")
         for reader in self.__readers:
             print(reader)
+            print("=======================================")
     
     def __readers_as_objects(self, list_readers):
         """Returns a list of Reader objects from a list of readers dictionaries"""
@@ -84,7 +86,7 @@ class Library:
 
         for reader_dict in list_readers:
             reader = Reader()
-            reader.put_dict(reader_dict) 
+            reader.put_dict(reader_dict)  # Pasamos dict a objeto
             result.append(reader)
         return result    
     
@@ -97,10 +99,9 @@ class Library:
 
         return list_readers
     
-
-        
-        
+   
     def __store_readers(self, list_readers):
+        """store readers dictionaries in file"""
         if not list_readers:
             self.__clear_file()
         else:
