@@ -7,25 +7,25 @@ from tkinter import messagebox
 class MainApplication():
     def __init__(self, parent):
         self.parent = parent
-        self.configure_window(430, 670)
+        self.configure_window(self.parent, 430, 670)
         self.add_widgets()
         self.add_menu()
         
-    def configure_window(self, width, height):
+    def configure_window(self, parent, width, height):
         """Inicializa ventana y la centra en pantalla"""
-        self.parent.title("Widgets Tkinter")
+        parent.title("Widgets Tkinter")
 
         # get screen width and height
-        screen_width = self.parent.winfo_screenwidth()
-        screen_height = self.parent.winfo_screenheight()
+        screen_width = parent.winfo_screenwidth()
+        screen_height = parent.winfo_screenheight()
 
         # calculate position x and y coordinates
         x = (screen_width/2) - (width/2)
         y = (screen_height/2) - (height/2)
-        self.parent.geometry('%dx%d+%d+%d' % (width, height, x, y))        
+        parent.geometry('%dx%d+%d+%d' % (width, height, x, y))        
         
-        self.parent.minsize(width, height)
-        self.parent.resizable(width=False, height=False)
+        parent.minsize(width, height)
+        parent.resizable(width=False, height=False)
         
     def add_widgets(self):
         # Contenido ventana
@@ -179,12 +179,11 @@ class SubWindow():
         # Ocultamos la ventana principal
         self.parent.withdraw() 
         self.sub_w.protocol("WM_DELETE_WINDOW", self.cerrar) # Definimos acción al cerrar sub ventana
+        # Configuramos la ventana
+        self.configure_window(self.sub_w, 500, 200)
+        self.add_tabs()
         
-        # Definimos el contenido de la subventana
-        self.sub_w.title("Sub Ventana")
-        self.sub_w.minsize(480, 180)
-        # self.sub_w.resizable(width=False, height=False)
-        
+    def add_tabs(self):    
         # Creamos pestañas    
         tab_control = ttk.Notebook(self.sub_w)
         self.tab1 = tk.Frame(tab_control)
@@ -200,7 +199,25 @@ class SubWindow():
         # Tabla en pestaña 2
         self.tabla(self.tab2) 
         
+    def configure_window(self, sub_w, width, height):
+        # Definimos el contenido de la subventana
+        sub_w.title("Sub Ventana")
+        sub_w.minsize(width, height)
+        # sub_w.resizable(width=False, height=False)
+        
 
+        # get screen width and height
+        screen_width = sub_w.winfo_screenwidth()
+        screen_height = sub_w.winfo_screenheight()
+
+        # calculate position x and y coordinates
+        x = (screen_width/2) - (width/2)
+        y = (screen_height/2) - (height/2)
+        sub_w.geometry('%dx%d+%d+%d' % (width, height, x, y))        
+        
+        sub_w.minsize(width, height)
+        sub_w.resizable(width=False, height=False)
+        
     def cerrar(self):
         """Se ejecuta en caso de cerrar la sub ventana"""
         self.parent.deiconify() # Recuperar ventana principal
