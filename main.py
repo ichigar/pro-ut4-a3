@@ -9,7 +9,7 @@ class MainApplication():
         self.parent = parent
 
         self.parent.title("Widgets Tkinter")
-        self.parent.minsize(460,550)
+        self.parent.minsize(420,550)
         self.parent.resizable(width=False, height=False)
         # Contenido ventana
         # Fila 0
@@ -62,7 +62,7 @@ class MainApplication():
         self.limpiar.grid(padx=10, pady=5, column=0, row=6, sticky="w")
 
         # Fila 7
-        self.salida = tk.Text(self.parent, width=20, height=5)
+        self.salida = tk.Text(self.parent, width=20, height=7)
         self.salida.config(state=tk.NORMAL)
         self.salida.insert(tk.INSERT, 'Muestro un resultado')
         self.salida.config(state=tk.DISABLED)
