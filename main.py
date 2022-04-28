@@ -7,10 +7,42 @@ from tkinter import messagebox
 class MainApplication():
     def __init__(self, parent):
         self.parent = parent
+        self.configure_window(430, 670)
+        self.add_widgets()
+        
+        
+        
+        # Barra de menús
+        menu = tk.Menu(self.parent)
+        new_item1 = tk.Menu(menu)
+        new_item1.add_command(label='Nuevo')
+        new_item1.add_command(label='Abrir', command=self.abrir)
+        new_item1.add_command(label='Guardar')
+        new_item2 = tk.Menu(menu)
+        new_item2.add_command(label='Cortar')
+        new_item2.add_command(label='Copiar')
+        new_item2.add_command(label='Pegar')
+        menu.add_cascade(label='Archivo', menu=new_item1)
+        menu.add_cascade(label='Edición', menu=new_item2)
+        self.parent.config(menu=menu)
 
+    def configure_window(self, width, height):
+        """Inicializa ventana y la centra en pantalla"""
         self.parent.title("Widgets Tkinter")
-        self.parent.minsize(420,590)
+
+        # get screen width and height
+        screen_width = self.parent.winfo_screenwidth()
+        screen_height = self.parent.winfo_screenheight()
+
+        # calculate position x and y coordinates
+        x = (screen_width/2) - (width/2)
+        y = (screen_height/2) - (height/2)
+        self.parent.geometry('%dx%d+%d+%d' % (width, height, x, y))        
+        
+        self.parent.minsize(width, height)
         self.parent.resizable(width=False, height=False)
+        
+    def add_widgets(self):
         # Contenido ventana
         # Fila 0
         self.etiqueta = tk.Label(self.parent, text="Etiqueta: ", font=("Arial", 12))
@@ -90,21 +122,7 @@ class MainApplication():
 
         self.chk = ttk.Button(self.parent, text="Subventana", command=self.sub_ventana) 
         self.chk.grid(padx=10, pady=5, column=2, row=11, sticky="w")
-        
-        # Barra de menús
-        menu = tk.Menu(self.parent)
-        new_item1 = tk.Menu(menu)
-        new_item1.add_command(label='Nuevo')
-        new_item1.add_command(label='Abrir', command=self.abrir)
-        new_item1.add_command(label='Guardar')
-        new_item2 = tk.Menu(menu)
-        new_item2.add_command(label='Cortar')
-        new_item2.add_command(label='Copiar')
-        new_item2.add_command(label='Pegar')
-        menu.add_cascade(label='Archivo', menu=new_item1)
-        menu.add_cascade(label='Edición', menu=new_item2)
-        self.parent.config(menu=menu)
-
+    
     def limpiar_cuadro(self):
         self.cuadro.delete("1.0", tk.END)
     
