@@ -9,23 +9,8 @@ class MainApplication():
         self.parent = parent
         self.configure_window(430, 670)
         self.add_widgets()
+        self.add_menu()
         
-        
-        
-        # Barra de menús
-        menu = tk.Menu(self.parent)
-        new_item1 = tk.Menu(menu)
-        new_item1.add_command(label='Nuevo')
-        new_item1.add_command(label='Abrir', command=self.abrir)
-        new_item1.add_command(label='Guardar')
-        new_item2 = tk.Menu(menu)
-        new_item2.add_command(label='Cortar')
-        new_item2.add_command(label='Copiar')
-        new_item2.add_command(label='Pegar')
-        menu.add_cascade(label='Archivo', menu=new_item1)
-        menu.add_cascade(label='Edición', menu=new_item2)
-        self.parent.config(menu=menu)
-
     def configure_window(self, width, height):
         """Inicializa ventana y la centra en pantalla"""
         self.parent.title("Widgets Tkinter")
@@ -122,6 +107,21 @@ class MainApplication():
 
         self.chk = ttk.Button(self.parent, text="Subventana", command=self.sub_ventana) 
         self.chk.grid(padx=10, pady=5, column=2, row=11, sticky="w")
+        
+    def add_menu(self):
+        # Barra de menús
+        menu = tk.Menu(self.parent)
+        new_item1 = tk.Menu(menu)
+        new_item1.add_command(label='Nuevo')
+        new_item1.add_command(label='Abrir', command=self.abrir)
+        new_item1.add_command(label='Guardar')
+        new_item2 = tk.Menu(menu)
+        new_item2.add_command(label='Cortar')
+        new_item2.add_command(label='Copiar')
+        new_item2.add_command(label='Pegar')
+        menu.add_cascade(label='Archivo', menu=new_item1)
+        menu.add_cascade(label='Edición', menu=new_item2)
+        self.parent.config(menu=menu)
     
     def limpiar_cuadro(self):
         self.cuadro.delete("1.0", tk.END)
@@ -135,21 +135,38 @@ class MainApplication():
         salida += f"Cuadro de texto: {self.cuadro.get('1.0', tk.END)}\n"
         salida += f"Spinbox: {self.spin.get()}\n"
         salida += f"Checkbutton: {self.chk_value.get()}\n"
-        
+        self.insertar_salida(salida)
+    
+    def insertar_salida(self, texto):    
         self.salida.config(state=tk.NORMAL)     # Activamos el cuadro de texto de salida
         self.salida.delete("1.0", tk.END)       # Limpiamos el cuadro de texto de salida
-        self.salida.insert(tk.INSERT, salida)   # Insertamos la salida en el cuadro de texto de salida
+        self.salida.insert(tk.INSERT, texto)   # Insertamos la salida en el cuadro de texto de salida
         self.salida.config(state=tk.DISABLED)   # Desactivamos el cuadro de texto de salida
         
+    def abrir(self):
+        # lanzamos diálogo para leer fichero
+        self.files = filedialog.askopenfilename(filetypes = (("Text files","*.txt"),("Mark Down files","*.md"),("all files","*.*")))
+        self.path = tk.StringVar()
+        self.path.set(self.files)
+        
+        messagebox.showinfo("Ruta al archivo", self.path.get())    # Mostramos la ruta del fichero
+        salida = self.leer_archivo(self.path.get())                # Obtenemos el contenido del fichero
+        self.insertar_salida(salida)                               # Lo mostramos en la salida
+        
+    def leer_archivo(self, path):
+        with open(path, "r") as file:
+            salida = file.read()
+        return salida
+    
+    def insertar_salida(self, salida):
+            self.salida.config(state=tk.NORMAL)     # Activamos el cuadro de texto de salida
+            self.salida.delete("1.0", tk.END)       # Limpiamos el cuadro de texto de salida
+            self.salida.insert(tk.INSERT, salida)   # Insertamos la salida en el cuadro de texto de salida
+            self.salida.config(state=tk.DISABLED)   # Desactivamos el cuadro de texto de salida
+            
     def sub_ventana(self):
         SubWindow(self.parent)
-
-    def abrir(self):
-        self.files = filedialog.askopenfilenames()
-        self.texto = tk.StringVar()
-        self.texto.set("Examinar....")
-        self.texto.set(self.files)
-        #file = filedialog.askopenfilename(filetypes = (("Text files","*.txt"),("all files","*.*")))
+        
 
 
 class SubWindow():
