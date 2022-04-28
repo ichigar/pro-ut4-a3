@@ -56,8 +56,8 @@ Archivos del proyecto comprimidos en un zip.
 
 Como referencia para el proyecto se incluyen los siguientes archivos:
 
-* `main.py`:python tkinter widgets sample
-* `files.py`: ejemplo de aplicación que guarda lista de objetos como diccionarios en archivo usando pickle.
+* `main.py` python tkinter widgets sample
+* `files.py` ejemplo de aplicación que guarda lista de objetos como diccionarios en archivo usando pickle.
 
 ## Recursos
 * Si queremos generar un ejecutable a partir de nuestro proyecto en Python nos podemos basar en el siguiente [tutorial para convertir fichero python en ejecutable en Linux/Windows](https://towardsdatascience.com/how-to-easily-convert-a-python-script-to-an-executable-file-exe-4966e253c7e9)
