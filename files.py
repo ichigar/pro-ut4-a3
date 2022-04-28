@@ -1,8 +1,6 @@
 import pickle
 import os
 
-from youtube_dl import list_extractors
-
 class Reader:
     """A reader has a name, an age and a list of books readed."""
     def __init__(self, name, age):
