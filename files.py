@@ -3,7 +3,7 @@ import os
 
 class Reader:
     """A reader has a name, an age and a list of books readed."""
-    def __init__(self, name, age):
+    def __init__(self, name = "", age = ""):
         # Los atributos son públicos para poder convertir el objeto en diccionario facilmente
         self.__name = name            
         self.__age = age
